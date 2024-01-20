@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Conta</title>
+        <meta charset="UTF-8" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="container mt-4">
+            <a href="/">Voltar</a>
+            <h3>Criar conta</h3>
+            <div class="mt-4">
+                {% if error %}
+                    <div id="internal-error" class="alert alert-danger">
+                        {{error}}
+                    </div>
+                {% endif %}
+                {% if bankAccount %}
+                <div id="internal-success" class="alert alert-success">
+                    Conta bancária criado com sucesso!
+                </div>
+                {% endif %}
+                <form action="" method="post">
+                    <div class="mb-3">
+                        <label for="document" class="form-label">Documento</label>
+                        <input type="text" class="form-control" name="document" id="document" placeholder="000.000.000-00">
+                    </div>
+                    <div class="my-1 form-check">
+                        <input class="form-check-input" type="radio" name="bankAccountType" value="current" checked id="current">
+                        <label class="form-check-label" for="current">Corrente</label>
+                    </div>
+                    <div class="my-1 form-check">
+                        <input class="form-check-input" type="radio" name="bankAccountType" value="savings" id="savings">
+                        <label class="form-check-label" for="savings">Poupança</label>
+                    </div>
+                    <div class="my-1 form-check">
+                        <input class="form-check-input" type="radio" name="bankAccountType" value="investiment" id="investiment">
+                        <label class="form-check-label" for="investiment">Investimento</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="initial_balance" class="form-label">Saldo inicial</label>
+                        <input type="number" class="form-control" name="initial_balance" id="initial_balance" min=0 placeholder="0">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Criar</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

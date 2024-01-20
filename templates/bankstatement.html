@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <title>Extrato</title>
+        <meta charset="UTF-8" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="{{url_for('static', filename='scripts/global.js')}}"></script>
+    </head>
+    <body>
+        <div class="container mt-4">
+        <a href="/">Voltar</a>
+        <h3>Extrato</h3>
+        <form method="get">
+            <div class="my-3">
+                <label for="document" class="form-label">Informe o seu documento</label>
+                <input type="text" class="form-control" name="document" id="document" {% if document %} value="{{document}}" {% endif %} placeholder="000.000.000-00">
+            </div>
+            <div class="my-3">
+                <label for="formDate" class="form-label">De</label>
+                <input class="form-control" type="date" name="start" id="formDate" {% if start %} value="{{start}}" {% endif %}/>
+            </div>
+            <div class="my-3">
+                <label for="formDate" class="form-label">Até</label>
+                <input class="form-control" type="date" name="end" id="formDate" {% if end %} value="{{end}}" {% endif %}/>
+            </div>
+            <button id="btn-submit" type="submit" class="btn btn-primary" disabled=disabled>Pesquisar</button>
+        </form>
+        <div class="d-flex justify-content-center">
+            <div class="card" style="width: 100%;">
+                <div class="card-header">
+                    <h5 id="customer-name" class="card-title"></h5>
+                    <h6 id="customer-document" class="card-subtitle mb-2 text-muted"></h6>
+                    <h6 id="bankaccount-type"></h6>
+                    <h6 id="bankaccount-value"></h6>
+                </div>
+                <div class="card-body">   
+                    {% if movements %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Data</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="movement-content">
+                            {%for i in movements%}  
+                            <tr>
+                                <td>{{i.date}}</td>
+                                <td>{{i.type}}</td>
+                                <td>{{i.value}}</td>
+                            </tr>
+                            {%endfor%}                            
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
+                {% if deposits %}
+                <div class="card-footer">
+                    <div>
+                        <p>Depositos: <span id="total-deposits">{{deposits}}</span></p>
+                        <p>Saques: <span id="total-withdraws">{{withdraws}}</span></p>
+                        <p>Op. Juros: <span id="total-investments">{{fees}}</span></p>                        
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>           
+    </div>
+    </body>
+</html>
